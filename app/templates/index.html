@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1> Hi, {{user.username}}! </h1>
+    <h3> The following are your blogs:</h3>
+    {% for item in data %}
+        <h5>{{item.author.username }}</h5><br>
+        {{item.title}}<br>
+    {% endfor %}
+{% endblock %}
