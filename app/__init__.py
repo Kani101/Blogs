@@ -1,6 +1,17 @@
 from flask import Flask
+from config import Config
+
 
 application = Flask(__name__)
-
+application.config.from_object(Config)
 
 from app import routes
+
+
+'''
+GET
+POST - u send some parameters.
+DELETE
+PUT
+PATCH
+'''
