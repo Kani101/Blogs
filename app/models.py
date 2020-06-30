@@ -1,9 +1,9 @@
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from flask_login import UserMixin
 
-class User(UserMixin, db.Model):
+
+class User(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(64), index=True, unique = True)
@@ -11,14 +11,18 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     contact = db.Column(db.String(10))
 
-    def set_pwd_hash(self, pwd):
-        self.password_hash = generate_password_hash(pwd)
-
     def checkPwd(self, pwd):
         return check_password_hash(self.password_hash, pwd)
 
     def __repr__(self):
        return '<User {}>'.format(self.username)
+
+
+def set_pwd_hash( pwd):
+    return  generate_password_hash(pwd)
+
+
+
 
 
 class Blog(db.Model):
