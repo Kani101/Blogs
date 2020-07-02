@@ -3,7 +3,15 @@
     <title> Blogs </title>
 </head>
 <body>
-    <div> Blogs <a href="/index"> Home </a>   <a href="/login"> Login</a>  <a href="/register">Register</a> </div>
+    <div> Blogs <a href="/index"> Home </a>
+        <a href="/welcome"> Welcome </a>
+        {% if current_user.is_anonymous %}
+            <a href="/login"> Login</a>
+            <a href="/register">Register</a> </div>
+        {% else %}
+            <a href="/logout">Logout</a>
+        {% endif %}
+
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul class=flashes>
