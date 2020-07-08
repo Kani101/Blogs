@@ -26,11 +26,11 @@ currentDate = date.today()
 file_handler = TimedRotatingFileHandler(
     filename='app/logs/query.' + str(currentDate) + '.log', when='midnight', backupCount=30 )
 
-formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-file_handler.setFormatter(formatter)
-logger = logging.getLogger('query')
-logger.addHandler(file_handler)
-logger.setLevel(logging.DEBUG)
+# formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+# file_handler.setFormatter(formatter)
+# logger = logging.getLogger('query')
+# logger.addHandler(file_handler)
+# logger.setLevel(logging.DEBUG)
 
 
 
