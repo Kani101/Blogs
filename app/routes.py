@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for, request
-from app import application, db, login
+from app import app, db, login
 from app.Form import LoginForm, RegistrationForm
 from app.models import User, set_pwd_hash
 from flask_login import login_required, current_user, login_user, logout_user
@@ -8,8 +8,8 @@ from app.logging.QueryLogger import QueryLogger
 from werkzeug.utils import secure_filename
 import os
 
-@application.route('/')
-@application.route('/index')
+@app.route('/')
+@app.route('/index')
 @login_required
 def index():
     return render_template('index.html')
@@ -18,12 +18,12 @@ def index():
 def load_user(id):
     return User.query.get(int(id))
 
-@application.route('/welcome')
+@app.route('/welcome')
 @login_required
 def welcome():
     return render_template('Welcome.html')
 
-@application.route('/login', methods= ['GET', 'POST'])
+@app.route('/login', methods= ['GET', 'POST'])
 def login():
     query = QueryLogger()
     query.log(message="User is trying to login")
@@ -42,7 +42,7 @@ def login():
             return redirect(next_page)
     return render_template('login.html', form=form)
 
-@application.route('/register', methods = ['GET', "POST"])
+@app.route('/register', methods = ['GET', "POST"])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -65,7 +65,7 @@ def register():
     else:
         return render_template('registration.html', form=form )
 
-@application.route("/logout")
+@app.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for('login'))
@@ -75,7 +75,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@application.route('/upload', methods=['GET', 'POST'])
+@app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part
@@ -90,7 +90,7 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(application.config['UPLOAD_FOLDER'], filename))
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             flash("file Uploaded")
             return redirect('welcome')
     return '''

@@ -8,18 +8,18 @@ import logging
 from logging.handlers import TimedRotatingFileHandler
 import os
 
-application = Flask(__name__)
-application.config.from_object(Config)
+app = Flask(__name__)
+app.config.from_object(Config)
 
 UPLOAD_FOLDER = os.path.abspath(os.path.dirname(__file__))
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-db = SQLAlchemy(application)
-mirgrate = Migrate(application, db)
-login = LoginManager(application)
+db = SQLAlchemy(app)
+mirgrate = Migrate(app, db)
+login = LoginManager(app)
 login.login_view = 'login'
-application.config.update(
+app.config.update(
         DEBUG=True)
 
 currentDate = date.today()
@@ -35,7 +35,7 @@ file_handler = TimedRotatingFileHandler(
 
 
 from app.errors import bp as errors_bp
-application.register_blueprint(errors_bp)
+app.register_blueprint(errors_bp)
 
 from app import routes, models
 
