@@ -4,6 +4,9 @@ from app.Form import LoginForm, RegistrationForm
 from app.models import User, set_pwd_hash
 from flask_login import login_required, current_user, login_user, logout_user
 from werkzeug.urls import url_parse
+from app.logging.QueryLogger import QueryLogger
+from werkzeug.utils import secure_filename
+import os
 
 @application.route('/')
 @application.route('/index')
@@ -22,6 +25,8 @@ def welcome():
 
 @application.route('/login', methods= ['GET', 'POST'])
 def login():
+    query = QueryLogger()
+    query.log(message="User is trying to login")
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
@@ -64,3 +69,36 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@application.route('/upload', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(application.config['UPLOAD_FOLDER'], filename))
+            flash("file Uploaded")
+            return redirect('welcome')
+    return '''
+    <!doctype html>
+    <title>Upload new File</title>
+    <h1>Upload new File</h1>
+    <form method=post enctype=multipart/form-data>
+      <input type=file name=file>
+      <input type=submit value=Upload>
+    </form>
+    '''

@@ -1,0 +1,15 @@
+ * Running on http://0.0.0.0:5422/ (Press CTRL+C to quit)
+127.0.0.1 - - [07/Jul/2020 22:04:54] "[37mPOST /login?next=%2F HTTP/1.1[0m" 200 -
+127.0.0.1 - - [07/Jul/2020 22:05:24] "[37mPOST /login?next=%2F HTTP/1.1[0m" 200 -
+127.0.0.1 - - [07/Jul/2020 22:05:44] "[37mPOST /login?next=%2F HTTP/1.1[0m" 200 -
+ * Running on http://0.0.0.0:5422/ (Press CTRL+C to quit)
+127.0.0.1 - - [07/Jul/2020 22:05:57] "[37mPOST /login?next=%2F HTTP/1.1[0m" 200 -
+127.0.0.1 - - [07/Jul/2020 22:06:06] "[37mPOST /login?next=%2F HTTP/1.1[0m" 200 -
+2020-07-07 22:10:50,823 INFO  * Running on http://0.0.0.0:5422/ (Press CTRL+C to quit)
+2020-07-07 22:10:59,073 INFO 127.0.0.1 - - [07/Jul/2020 22:10:59] "[37mPOST /login?next=%2Fwelcome HTTP/1.1[0m" 200 -
+2020-07-07 22:11:04,443 INFO 127.0.0.1 - - [07/Jul/2020 22:11:04] "[37mPOST /login?next=%2Fwelcome HTTP/1.1[0m" 200 -
+2020-07-07 22:11:37,799 INFO  * Running on http://0.0.0.0:5422/ (Press CTRL+C to quit)
+2020-07-07 22:11:45,218 INFO 127.0.0.1 - - [07/Jul/2020 22:11:45] "[37mPOST /login?next=%2Fwelcome HTTP/1.1[0m" 200 -
+2020-07-07 22:13:04,543 INFO  * Running on http://0.0.0.0:5422/ (Press CTRL+C to quit)
+2020-07-07 22:13:12,798 WARNING User is trying to login
+2020-07-07 22:14:04,139 WARNING User is trying to login
